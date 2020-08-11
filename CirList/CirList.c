@@ -87,7 +87,7 @@ void CListPopFront(CList *c)
 void CListInsert(CList *c, int pos, CListData data)
 {
 	int count = Size(c) - 1;
-	if(pos < 0 | pos > count)
+	if(pos < 0 || pos > count)
 	{
 		return;
 	}

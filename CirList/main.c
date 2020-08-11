@@ -30,9 +30,8 @@ int menu()
 	printf("0.退出\n");
 	printf("====================\n");
 	printf("请输入：");
-  int choice = 0;
+  int choice;
   scanf("%d", &choice);
-  setbuf(stdout, NULL);
   return choice;
 }
 
@@ -40,9 +39,9 @@ int main()
 { 
 	CList c;
 	CListInit(&c);
+  int choice;
 	while(1)
 	{
-		int choice;
 		choice = menu();
 		switch(choice)
 		{
@@ -72,24 +71,49 @@ int main()
 				int pos1;
 				printf("请输入您要插入的位置和值：");
 				scanf("%d,%s", &pos1, data3);
+        if(!(pos1 >= 0 && pos1 <= Size(&c)))
+        {
+          printf("你敲nm呢,给爷爬\n");
+          break;
+        }
 				CListInsert(&c, pos1, data3);
 				printf("增加成功\n");
 				break;
 			case CHOICE4:	
 				printf("头部删除结点\n");
+        if(NULL == c._pHead)
+        {
+          printf("无结点，删除失败\n");
+          break;
+        }
 				CListPopFront(&c);
 				printf("删除成功\n");
 				break;
 			case CHOICE5:
 				printf("尾部删除结点\n");
+        if(NULL == c._pHead)
+        {
+          printf("无结点，删除失败\n");
+          break;
+        }
 				CListPopBack(&c);
 				printf("删除成功\n");
 				break;
 			case CHOICE6:
 				printf("定位删除结点\n");
+        if(NULL == c._pHead)
+        {
+          printf("无结点，删除失败\n");
+          break;
+        }
 				int pos2;
 				printf("请输入您要删除的位置：");
 				scanf("%d", &pos2);
+        if(!(pos2 >= 0 && pos2 < Size(&c)))
+        {
+          printf("你敲nm呢,给爷爬\n");
+          break;
+        }
 				CListErase(&c, pos2);
 				printf("删除成功\n");
 				break;	
@@ -111,6 +135,7 @@ int main()
 			default:
 				printf("输入有误，请重新输入：\n");
 		}
+    scanf("%*[^\n]%*c");
 	}
 	return 0;
 }
