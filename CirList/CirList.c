@@ -108,119 +108,120 @@ void CListInsert(CList *c, int pos, CListData data)
 		pNewNode->_pNext = pCur;
 		pCur->_pPrev->_pNext = pNewNode;
 		pNewNode->_pPrev = pCur->_pPrev;
-		pCur->_pPrev = pNewNode;
-	} 
-}
-
-void CListErase(CList *c, int pos)
-{
-  if(NULL == c->_pHead)
-  {
-    return;
+      pCur->_pPrev = pNewNode;
+    } 
   }
-	int count = Size(c) - 1;
-	if(pos < 0 | pos > count)
-	{
-		return;
-	}
-	pNode pCur = c->_pHead;
-	count = 0;
-	if(0 == pos)
-	{
-		CListPopFront(c);
-	}
-	else
-	{
-		while(count != pos)
-		{
-			pCur = pCur->_pNext;
-			count++;
-		}
-		pCur->_pPrev->_pNext = pCur->_pNext;
-		pCur->_pNext->_pPrev = pCur->_pPrev;
-		free(pCur);
-	}
-}
 
-void CListClear(CList *c)
-{
-	if(NULL == c->_pHead)
-	{
-		return;
-	}
-	c->_pHead->_pNext = NULL;
-	c->_pHead->_pPrev = NULL;
-	c->_pHead = NULL;
-}
+  void CListErase(CList *c, int pos)
+  {
+    if(NULL == c->_pHead)
+    {
+      return;
+    }
+    int count = Size(c) - 1;
+    if(pos < 0 | pos > count)
+    {
+      return;
+    }
+    pNode pCur = c->_pHead;
+    count = 0;
+    if(0 == pos)
+    {
+      CListPopFront(c);
+    }
+    else
+    {
+      while(count != pos)
+      {
+        pCur = pCur->_pNext;
+        count++;
+      }
+      pCur->_pPrev->_pNext = pCur->_pNext;
+      pCur->_pNext->_pPrev = pCur->_pPrev;
+      free(pCur);
+    }
+  }
 
-void CListSize(CList *c)
-{
-	if(NULL == c->_pHead)
-	{
-		printf("size = 0\n");
-		return;
-	}
-	int size = 1;
-	pNode pCur = c->_pHead;
-	while(pCur->_pNext != c->_pHead)
-	{
-		size++;
-		pCur = pCur->_pNext;
-	}
-	printf("size = %d\n", size);
-}
+  void CListClear(CList *c)
+  {
+    if(NULL == c->_pHead)
+    {
+      return;
+    }
+    c->_pHead->_pNext = NULL;
+    c->_pHead->_pPrev = NULL;
+    c->_pHead = NULL;
+  }
 
-int Size(CList *c)
-{
-	int size = 1;
-	pNode pCur = c->_pHead;
-	while(pCur->_pNext != c->_pHead)
-	{
-		size++;
-		pCur = pCur->_pNext;
-	}
-	return size;
-}
+  void CListSize(CList *c)
+  {
+    if(NULL == c->_pHead)
+    {
+      printf("size = 0\n");
+      return;
+    }
+    int size = 1;
+    pNode pCur = c->_pHead;
+    while(pCur->_pNext != c->_pHead)
+    {
+      size++;
+      pCur = pCur->_pNext;
+    }
+    printf("size = %d\n", size);
+  }
 
-int CListFind(CList *c, CListData data)
-{
-	pNode pCur = c->_pHead;
-	int count = 0;
-	if(NULL == c->_pHead)
-	{ 
-		return -1;
-	}
-	while(pCur->_data != data)
-	{
-		pCur = pCur->_pNext;
-		count++;
-		if(count >= Size(c))
-		{
-			return -1;
-		}
-	}
-	return count;
-}
+  int Size(CList *c)
+  {
+    int size = 1;
+    pNode pCur = c->_pHead;
+    while(pCur->_pNext != c->_pHead)
+    {
+      size++;
+      pCur = pCur->_pNext;
+    }
+    return size;
+  }
 
-void Print(CList *c)
-{
-	pNode pCur = c->_pHead;
-	if(NULL == c->_pHead)
-	{
-		printf("NULL<--->NULL");
-	}
-	else if(c->_pHead == c->_pHead->_pNext)
-	{
-		printf("%s<--->%s", c->_pHead->_data, c->_pHead->_data);
-	}
-	else
-	{
-		printf("%s<--->", c->_pHead->_data);
-		while(pCur->_pNext != c->_pHead)
-		{
-			pCur = pCur->_pNext;
+  int CListFind(CList *c, CListData data)
+  {
+    pNode pCur = c->_pHead;
+    int count = 0;
+    if(NULL == c->_pHead)
+    { 
+      return -1;
+    }
+    while(pCur->_data != data)
+    {
+      pCur = pCur->_pNext;
+      count++;
+      if(count >= Size(c))
+      {
+        return -1;
+      }
+    }
+    return count;
+  }
+
+  void Print(CList *c)
+  {
+    pNode pCur = c->_pHead;
+    if(NULL == c->_pHead)
+    {
+      printf("NULL<--->NULL");
+    }
+    else if(c->_pHead == c->_pHead->_pNext)
+    {
+      printf("%s<--->%s", c->_pHead->_data, c->_pHead->_data);
+    }
+    else
+    {
+      printf("%s<--->", c->_pHead->_data);
+      while(pCur->_pNext != c->_pHead)
+      {
+        pCur = pCur->_pNext;
 			printf("%s<--->", pCur->_data);
-		}
+  }
+List* list = malloc(sizeof(List));
 		printf("%s", c->_pHead->_data);
 	}
 	printf("\n");
